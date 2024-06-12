@@ -14,5 +14,5 @@ type Job struct {
 	TotalApplications int       `json:"total_applicants"`
 	CompanyName       string    `json:"company_name"`
 	PostedByID        uint      `json:"posted_by_id"`
-	PostedBy          User      `json:"posted_by"`
+	PostedBy          Admin      `json:"posted_by"`
 }

@@ -13,3 +13,20 @@ type User struct {
 	Profile         Profile `json:"profile"`
 	JobsPosted      []Job   `json:"jobs_posted"`
 }
+
+type UserLogin struct {
+	Name         string `json:"name"`
+	Email        string `json:"email"`
+	PasswordHash string `json:"password_hash"`
+}
+
+type UserSignup struct {
+	Email               string `json:"email"`
+	PasswordHash        string `json:"password_hash"`
+	ConfirmPasswordHash string `json:"confirm_password_hash"`
+}
+
+type UserToken struct {
+	User  UserSignup
+	Token string
+}

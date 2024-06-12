@@ -1,8 +1,13 @@
 package db
 
 import (
+	"fmt"
 	"log"
 	"os"
+
+	"github.com/Anandhu4456/rms/pkg/model"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 type Config struct {
@@ -33,4 +38,26 @@ func LoadConfig() (Config, error) {
 		}
 	}
 	return config, nil
+}
+
+func Connection(cfg Config) (*gorm.DB, error) {
+	dsn := fmt.Sprintf("host=%s user=%s password=%s port=%s dbname=%s", cfg.DBHost, cfg.DBUser, cfg.DBPassword, cfg.DBPort, cfg.DBName)
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+		SkipDefaultTransaction: true,
+	})
+	if err != nil {
+		log.Fatal("[Invalid dsn] :", err)
+	}
+
+	if err := db.AutoMigrate(&model.User{}); err != nil {
+		return &gorm.DB{}, err
+	}
+	if err := db.AutoMigrate(&model.Profile{}); err != nil {
+		return &gorm.DB{}, err
+	}
+	if err := db.AutoMigrate(&model.Job{}); err != nil {
+		return &gorm.DB{}, err
+	}
+
+	return db, nil
 }
