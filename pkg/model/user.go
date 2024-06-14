@@ -24,6 +24,7 @@ type UserSignup struct {
 	Email               string `json:"email"`
 	PasswordHash        string `json:"password_hash"`
 	ConfirmPasswordHash string `json:"confirm_password_hash"`
+	Address             string `json:"address"`
 }
 
 type UserToken struct {
